@@ -1,5 +1,4 @@
 services:
-
   mysql:
     image: mysql:8.0
     container_name: petclinic-mysql
@@ -17,6 +16,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    
+
 
   app:
     image: petclinic-app:latest
@@ -40,4 +41,7 @@ services:
 
 networks:
   petclinic-network:
+    external: true
     driver: bridge
+
+
