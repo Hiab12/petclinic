@@ -4,7 +4,7 @@ services:
     container_name: petclinic-mysql
     environment:
       MYSQL_DATABASE: petclinic
-      MYSQL_USER: root
+      MYSQL_USER: petclinic
       MYSQL_PASSWORD: petclinic
       MYSQL_ROOT_PASSWORD: Ha705010
     ports:
