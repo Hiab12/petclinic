@@ -16,9 +16,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    environment:
-      MYSQL_DATABASE: petclinic
-      MYSQL_ROOT_PASSWORD: Ha705010
+    
 
 
   app:
