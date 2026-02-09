@@ -6,25 +6,28 @@ services:
       MYSQL_DATABASE: petclinic
       MYSQL_USER: petclinic
       MYSQL_PASSWORD: petclinic
-      MYSQL_ROOT_PASSWORD: Ha705010
+      MYSQL_ROOT_PASSWORD: HA705010
     ports:
       - "3306:3306"
+    networks:
+      - petclinic-network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pHA705010"]
       interval: 10s
       timeout: 5s
-      retries: 10
+      retries: 5
 
   app:
     image: petclinic-app:latest
     container_name: petclinic-app
+    ports:
+      - "9123:8080"
     depends_on:
       mysql:
         condition: service_healthy
-    ports:
-      - "9123:8080"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/petclinic
-      SPRING_DATASOURCE_USERNAME: petclinic
-      SPRING_DATASOURCE_PASSWORD: petclinic
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    networks:
+      - petclinic-network
+
+networks:
+  petclinic-network:
+    driver: bridge
