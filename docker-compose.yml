@@ -30,6 +30,6 @@ services:
 
 networks:
   petclinic-network:
-    name: petclinic-network
+    external: true
     driver: bridge
 
