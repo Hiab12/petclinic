@@ -35,9 +35,4 @@ networks:
     external: true
     driver: bridge
 
-environment:
-  SPRING_DATASOURCE_URL: jdbc:mysql://petclinic-mysql:3306/petclinic?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-  SPRING_DATASOURCE_USERNAME: root
-  SPRING_DATASOURCE_PASSWORD: Ha705010
-  SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
-  SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
