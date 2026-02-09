@@ -1,4 +1,5 @@
 services:
+
   mysql:
     image: mysql:8.0
     container_name: petclinic-mysql
@@ -16,23 +17,27 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    
-
 
   app:
     image: petclinic-app:latest
     container_name: petclinic-app
     ports:
       - "9123:8080"
+    networks:
+      - petclinic-network
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://petclinic-mysql:3306/petclinic
+      SPRING_DATASOURCE_USERNAME: petclinic
+      SPRING_DATASOURCE_PASSWORD: petclinic
     depends_on:
       mysql:
         condition: service_healthy
-    networks:
-      - petclinic-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   petclinic-network:
-    external: true
     driver: bridge
-
-
