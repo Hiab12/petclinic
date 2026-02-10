@@ -16,8 +16,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    
-
+      start_period: 20s
 
   app:
     image: petclinic-app:latest
@@ -30,7 +29,6 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/petclinic?useSSL=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: petclinic
       SPRING_DATASOURCE_PASSWORD: petclinic
-
       SPRING_SQL_INIT_MODE: always
       SPRING_SQL_INIT_SCHEMA_LOCATIONS: classpath:db/mysql/schema.sql
       SPRING_SQL_INIT_DATA_LOCATIONS: classpath:db/mysql/data.sql
@@ -38,16 +36,12 @@ services:
       mysql:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/actuator/health"]
       interval: 10s
       timeout: 5s
-      retries: 5
-    
-      
+      retries: 10
+      start_period: 20s
 
 networks:
   petclinic-network:
-    external: true
     driver: bridge
-
-
